@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Character = require("/models/Character")
+const Character = require("./models/Character");
+
 const app = express();
 
 try {
@@ -18,36 +19,30 @@ try {
 
 app.use(express.json());
 
-const characters = [
-  {
-    id: 1,
-    name: "Harry Potter",
-    spacies: "Human",
-    house: "Gryffindor",
-    actor: "Daniel Redcliffe",
-  },
-  {
-    id: 2,
-    name: "Hermione",
-    spacies: "Human",
-    house: "Gryffindor",
-    actor: "Emma Watson",
-  },
-];
-
 //Rota get -READ
 app.get("/", (req, res) => {
   res.send(characters);
 });
 
 //POST - CREATE
-app.post("/character", (req, res) => {
-  const character = req.body;
+app.post("/character", async (req, res) => {
+  const { name, speceis, house, actor } = req.body;
 
-  character.id = characters.length + 1;
-  characters.push(character);
+  if(!name || !speceis || !house || !actor){
+    res.status(400).send({ message: "Você não enviou todos os dados necessários para o cadastro"})
+    return;
+  }
+  
+  const character = await new Character({
+    name,
+    speceis,
+    house,
+    actor,
+  })
 
-  res.send({ message: "Personagem criado com sucesso!" });
+  await character.save()
+
+  res.send({messege: "Personagem criado com sucesso!"});
 });
 
 //getBYid
