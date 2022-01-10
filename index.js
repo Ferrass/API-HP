@@ -1,5 +1,19 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
+
+try {
+  mongoose.connect(
+    "mongodb+srv://root:adm@cluster0.jwsec.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
+  console.log("Banco de dados concetado!");
+} catch (err) {
+  console.log(`Erro ao concetar no banco de dados ${err}`);
+}
 
 app.use(express.json());
 
