@@ -50,9 +50,9 @@ app.get("/character/:id", async (req, res) => {
 
 //POST - CREATE
 app.post("/character", async (req, res) => {
-  const { name, species, actor } = req.body;
+  const { name, species, house, actor } = req.body;
 
-  if (!name || !species || !actor) {
+  if (!name || !species || !house  || !actor) {
     res.status(400).send({
       message: "Você não enviou todos os dados necessários para o cadastro",
     });
@@ -62,6 +62,7 @@ app.post("/character", async (req, res) => {
   const character = await new Character({
     name,
     species,
+    house,
     actor,
   });
 
@@ -85,9 +86,9 @@ app.put("/character/:id", async (req, res) => {
     return res.status(404).send({ messege: "Personagem não encontrado!" });
   }
 
-  const { name, spacies, actor } = req.body;
+  const { name, species, house, actor } = req.body;
 
-  if (!name || !spacies || !actor) {
+  if (!name || !species || !house  || !actor) {
     res.status(400).send({
       messege: "Você não enviou todos os dados necessários para o atualização",
     });
@@ -95,7 +96,8 @@ app.put("/character/:id", async (req, res) => {
   }
   
   character.name = name;
-  character.spacies = spacies;
+  character.species = species;
+  character.house = house;
   character.actor = actor
 
   await character.save()
