@@ -6,7 +6,7 @@ const Character = require("./models/Character");
 
 const app = express();
 
-const port = process.Tenv.POR || 3000;
+const port = process.env.PORT || 3000;
 
 try {
   mongoose.connect(
