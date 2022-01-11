@@ -8,10 +8,6 @@ const characterSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  house: {
-    type: String,
-    require: true,
-  },
   actor: {
     type: String,
     require: true,
