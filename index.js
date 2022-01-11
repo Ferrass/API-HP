@@ -106,7 +106,7 @@ app.put("/character/:id", async (req, res) => {
 });
 
 // DELETE - DELETe
-app.delete("character/:id", async(req, res) => {
+app.delete("/character/:id", async(req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
